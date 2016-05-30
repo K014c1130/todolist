@@ -1,4 +1,4 @@
-CTYPE html>
+<DOCTYPE html>
 <html lang="ja">
 <head>
  <meta charset="UTF-8">
@@ -29,7 +29,7 @@ CTYPE html>
 
     $dbh = null;
   }
-  $sql = 'SELECT name FROM todolist WHERE id=1';
+  $sql = 'SELECT item FROM todolist WHERE 1';
   $stmt = $dbh->prepare($sql);
   $stmt->execute();
 
@@ -37,20 +37,21 @@ CTYPE html>
   ?>
 <form method = "get" action = "index.php">
 <input type="text" name = "name" style="width:200px">
-<input type="submit" value="add"><br />
+<input type="submit" value="add"><br /><br />
 </form>
 
-<form method = "get" action = "project_delete">
+<form method = "get" action = "index.php">
+<?php
 while(true) {
-  $rec =$stmt->fetch(PDO::FETCH\ASSOC);
+  $rec = $stmt->fetch(PDO::FETCH_ASSOC);
   if($rec==false){
     break;
   }
-  print $rec['item'];
-  <input type="submit" value="delete" name="$rec['id']" style="background:url('submit_delete.jpg')" />
-  print '</br>';
+  print $rec['item'];?>
+  <input type="submit" value="'.$rec['id'].'" name="staff_id" style="background:url('submit_delete.jpg')">
+  <?php print '</br>'; ?>
+
 }
-
+</form>
 </body>
-
 </html>
